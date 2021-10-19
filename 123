@@ -1,0 +1,58 @@
+package ru.luxoft.test;
+
+import java.util.Scanner;
+
+public class Calculator {
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int a = number();
+        int b = number();
+        char operation = action();
+        int res = calc(a, b, operation);
+        System.out.println("Результат: " + res);
+    }
+
+    public static int number() {
+        System.out.println("Введите число:");
+        int num;
+        if (!scanner.hasNextInt()) {
+            System.out.println("Допущена ошибка при вводе числа. Попробуйте еще раз.");
+            scanner.next();
+            num = number();
+        } else {
+            num = scanner.nextInt();
+        }
+        return num;
+    }
+
+    public static char action() {
+        System.out.println("Введите операцию:");
+        char operation;
+        if (!scanner.hasNext()) {
+            System.out.println("Допущена ошибка при вводе. Попробуйте еще раз.");
+            scanner.next();
+            operation = action();
+        } else {
+            operation = scanner.next().charAt(0);
+        }
+        return operation;
+    }
+
+    public static int calc(int a, int b, char operation) {
+        int res;
+        if (operation == '+') {
+            res = a + b;
+        } else if (operation == '-') {
+            res = a - b;
+        } else if (operation == '*') {
+            res = a * b;
+        } else if (operation == '/') {
+            res = a / b;
+        } else {
+            System.out.println("Операция не распознана. Повторите ввод.");
+            res = calc(a, b, action());
+        }
+        return res;
+    }
+}
